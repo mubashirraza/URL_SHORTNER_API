@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>URL Shortener</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+      <style type="text/css">
+         body{
+         margin: 0 auto;
+         background: aliceblue;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1 style="text-align: center;">Shorten URL</h1>
+         <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-info" type="submit" name="button">Shorten</button>
+         </form>
+         <br>
+         {% if token == 'invalid' %}
+         <p>Invalid URL. Please try again.</p>
+         {% else %}
+         Generated Shortened Link = <a href="/{{token}}">{{ request.build_absolute_uri }}{{ token }}</a>
+         {% endif %}
+      </div>
+   </body>
+</html>
